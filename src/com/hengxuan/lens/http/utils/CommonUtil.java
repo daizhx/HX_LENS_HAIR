@@ -255,7 +255,8 @@ public class CommonUtil {
 	{	
 		HttpGroupSetting httpgroupsetting = new HttpGroupSetting();
 		httpgroupsetting.setType(1000);
-		HttpGroupaAsynPool httpgroupaasynpool = new HttpGroupaAsynPool(context, httpgroupsetting);
+//		HttpGroupaAsynPool httpgroupaasynpool = new HttpGroupaAsynPool(context, httpgroupsetting);
+		HttpGroupaAsynPool httpgroupaasynpool = HttpGroupaAsynPool.getHttpGroupaAsynPool();
 		HttpSetting httpsetting = new HttpSetting();
 		httpsetting.setFunctionId("genToken");
 		httpsetting.putJsonParam("action", s);

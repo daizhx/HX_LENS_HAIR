@@ -6,7 +6,16 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.hengxuan.lens.http.HttpError;
+import com.hengxuan.lens.http.HttpGroup;
+import com.hengxuan.lens.http.HttpGroupaAsynPool;
+import com.hengxuan.lens.http.HttpResponse;
+import com.hengxuan.lens.http.HttpSetting;
+import com.hengxuan.lens.http.constant.ConstFuncId;
 import com.hengxuan.lens.http.constant.ConstHttpProp;
+import com.hengxuan.lens.http.json.JSONArrayPoxy;
+import com.hengxuan.lens.http.json.JSONObjectProxy;
+import com.hengxuan.lens.utils.PreferencesUtils;
 import com.hengxuan.lenshair.R;
 
 import android.app.Activity;
@@ -37,7 +46,7 @@ public class HairReportDetailActivity extends Activity {
 		badnettv = (TextView) findViewById(R.id.isempty);
 		Intent intent = getIntent();
 		getDate = intent.getStringExtra("currentdate");
-		getUserPin = getStringFromPreference(ConstHttpProp.USER_PIN);
+		getUserPin = PreferencesUtils.getStringFromPrefences(this, ConstHttpProp.USER_PIN);
 		list = new ArrayList<HashMap<String, String>>();
 		queryData();
 		listview = (ListView) findViewById(R.id.expandlist);
@@ -150,6 +159,6 @@ public class HairReportDetailActivity extends Activity {
 				
 			}});
 		httpsetting.setNotifyUser(true);
-		getHttpGroupaAsynPool().add(httpsetting);
+		HttpGroupaAsynPool.getHttpGroupaAsynPool().add(httpsetting);
 	}
 }

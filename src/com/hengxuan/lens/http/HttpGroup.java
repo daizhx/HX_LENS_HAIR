@@ -13,6 +13,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.hengxuan.eht.EHTApplication;
 import com.hengxuan.lens.http.HttpGroup.OnReadyListener;
 import com.hengxuan.lens.http.constant.ConstHttpProp;
 import com.hengxuan.lens.http.constant.ConstSysConfig;
@@ -290,7 +291,7 @@ public abstract class HttpGroup{
 		httpSetting.setId(httpIdCounter);
 		tryEffect(httpSetting);
 		httpSetting.onStart();
-		HttpRequest request = new HttpRequest(httpSetting, this);
+		HttpRequest request = new HttpRequest(EHTApplication.getInstance(), httpSetting, this);
 		OnReadyListener readyListener = httpSetting.getOnReadyListener();
 		if (readyListener != null) {		
 			new HttpGroup_Thread(this, readyListener, httpSetting, request).start();

@@ -8,7 +8,16 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.hengxuan.lens.http.HttpError;
+import com.hengxuan.lens.http.HttpGroup;
+import com.hengxuan.lens.http.HttpGroupaAsynPool;
+import com.hengxuan.lens.http.HttpResponse;
+import com.hengxuan.lens.http.HttpSetting;
+import com.hengxuan.lens.http.constant.ConstFuncId;
 import com.hengxuan.lens.http.constant.ConstHttpProp;
+import com.hengxuan.lens.http.json.JSONArrayPoxy;
+import com.hengxuan.lens.http.json.JSONObjectProxy;
+import com.hengxuan.lens.utils.PreferencesUtils;
 import com.hengxuan.lenshair.R;
 
 import android.app.Activity;
@@ -42,7 +51,7 @@ public class HairReportActivity extends Activity {
 		setContentView(R.layout.simple_list);
 		datelist = new ArrayList<HashMap<String, String>>();
 		contentlist = new ArrayList<ArrayList<HashMap<String, String>>>();
-		getUserPin = getStringFromPreference(ConstHttpProp.USER_PIN);
+		getUserPin = PreferencesUtils.getStringFromPrefences(this, ConstHttpProp.USER_PIN);
 
 		// 历史时间段保存的数据
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
@@ -189,6 +198,6 @@ public class HairReportActivity extends Activity {
 			}
 		});
 		httpsetting.setNotifyUser(true);
-		getHttpGroupaAsynPool().add(httpsetting);
+		HttpGroupaAsynPool.getHttpGroupaAsynPool().add(httpsetting);
 	}
 }

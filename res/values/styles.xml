@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -18,4 +18,10 @@
     </style>
 
     <style name="Widget.GifMoviewView" parent="@android:style/Widget"></style>
+
+    <style name="skan_pop" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/skan_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/skan_pop_exit</item>
+    </style>
+
 </resources>

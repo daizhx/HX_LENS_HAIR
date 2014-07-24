@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.hengxuan.lens.http.HttpError;
 import com.hengxuan.lens.http.HttpGroup;
+import com.hengxuan.lens.http.HttpGroupaAsynPool;
 import com.hengxuan.lens.http.HttpResponse;
 import com.hengxuan.lens.http.HttpSetting;
 import com.hengxuan.lens.http.constant.ConstFuncId;
@@ -229,7 +230,7 @@ public class HairAnalysisResultActivity extends Activity {
 			}
 		});
 		httpsetting.setNotifyUser(true);
-		getHttpGroupaAsynPool().add(httpsetting);			
+		HttpGroupaAsynPool.getHttpGroupaAsynPool().add(httpsetting);			
 	
 	}
 
@@ -259,7 +260,7 @@ public class HairAnalysisResultActivity extends Activity {
 			@Override
 			public void onEnd(HttpResponse response) {
 				final int getcode = response.getCode();
-				post(new Runnable() {
+				mHandler.post(new Runnable() {
 					
 					@Override
 					public void run() {
@@ -282,6 +283,6 @@ public class HairAnalysisResultActivity extends Activity {
 
 			}});
 		httpsetting.setNotifyUser(true);
-		getHttpGroupaAsynPool().add(httpsetting);
+		HttpGroupaAsynPool.getHttpGroupaAsynPool().add(httpsetting);
 	}
 }

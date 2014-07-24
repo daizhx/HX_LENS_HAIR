@@ -14,12 +14,14 @@ public class HttpGroupaAsynPool extends HttpGroup {
 		super(paramHttpGroupSetting);
 	}
 
-	public static HttpGroup getHttpGroupaAsynPool() {
-		if(mHttpGroupaAsynPool != null){
-			return mHttpGroupaAsynPool;
-		}else{
-			return getHttpGroupaAsynPool(ConstHttpProp.TYPE_JSON);
+	public static HttpGroupaAsynPool getHttpGroupaAsynPool() {
+		if(mHttpGroupaAsynPool == null){
+			HttpGroupSetting localHttpGroupSetting = new HttpGroupSetting();
+			localHttpGroupSetting.setType(ConstHttpProp.TYPE_JSON);
+			mHttpGroupaAsynPool = new HttpGroupaAsynPool(localHttpGroupSetting);
 		}
+		
+		return mHttpGroupaAsynPool;
 	}
 
 	private static HttpGroup getHttpGroupaAsynPool(int paramInt) {

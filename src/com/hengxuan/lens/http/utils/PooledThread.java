@@ -113,11 +113,11 @@ public class PooledThread extends Thread {
 							stopped = false;
 							if (tasks.size() > 0) {// tasksize >0
 								tasks.clear();
-								String s = String.valueOf(Thread
-										.currentThread().getId());
-								String s1 = (new StringBuilder(s)).append(
-										": Tasks are stopped").toString();
-								//System.out.println(s1);
+//								String s = String.valueOf(Thread
+//										.currentThread().getId());
+//								String s1 = (new StringBuilder(s)).append(
+//										": Tasks are stopped").toString();
+//								System.out.println(s1);
 
 							}
 							running = false;
@@ -125,12 +125,12 @@ public class PooledThread extends Thread {
 						if (paused) {
 							paused = false;
 							if (tasks.size() > 0) {
-								PrintStream printstream1 = System.out;
-								String s2 = String.valueOf(Thread
-										.currentThread().getId());
-								String s3 = (new StringBuilder(s2)).append(
-										": Tasks are paused").toString();
-								//System.out.println(s3);
+//								PrintStream printstream1 = System.out;
+//								String s2 = String.valueOf(Thread
+//										.currentThread().getId());
+//								String s3 = (new StringBuilder(s2)).append(
+//										": Tasks are paused").toString();
+//								System.out.println(s3);
 							}
 							running = false;
 						}
