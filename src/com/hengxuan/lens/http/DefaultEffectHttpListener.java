@@ -55,11 +55,9 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 						String s = stringbuilder.append(modal).toString();
 						Log.d(s);
 						
-						ViewGroup.LayoutParams layoutparams = new ViewGroup.LayoutParams(-1, -1);
-						
+						ViewGroup.LayoutParams layoutparams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 						rootFrameLayout.addView(modal, layoutparams);
 						rootFrameLayout.invalidate();
-//						myActivity.onShowModal();
 					}
 				});
 			}
@@ -202,7 +200,6 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 							StringBuilder stringbuilder = new StringBuilder("state remove modal -->> ");
 							String s = stringbuilder.append(modal).toString();
 							Log.d(s);
-							
 							rootFrameLayout.removeView(modal);
 							rootFrameLayout.invalidate();
 						}
@@ -244,7 +241,6 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 		}
 		myActivity = myactivity;
 		isShowProgress = httpsetting.isShowProgress();
-//		myactivity.addDestroyListener(this);
 	}
 	
 	public DefaultEffectHttpListener(Activity myactivity) {
@@ -253,7 +249,6 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 		onErrorListener = null;
 
 		myActivity = myactivity;
-//		myactivity.addDestroyListener(this);
 	}
 
 	private void missionBegins()

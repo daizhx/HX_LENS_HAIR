@@ -28,10 +28,12 @@ public class HttpGroupaAsynPool extends HttpGroup {
 	public static HttpGroupaAsynPool getHttpGroupaAsynPool(Activity activity) {
 		if(mHttpGroupaAsynPool == null){
 			HttpGroupSetting localHttpGroupSetting = new HttpGroupSetting();
-			localHttpGroupSetting.setMyActivity(activity);
+//			localHttpGroupSetting.setMyActivity(activity);
 			localHttpGroupSetting.setType(ConstHttpProp.TYPE_JSON);
 			mHttpGroupaAsynPool = new HttpGroupaAsynPool(localHttpGroupSetting);
 		}
+		HttpGroupSetting httpGroupSetting =  mHttpGroupaAsynPool.getHttpGroupSetting();
+		httpGroupSetting.setMyActivity(activity);
 		
 		return mHttpGroupaAsynPool;
 	}
