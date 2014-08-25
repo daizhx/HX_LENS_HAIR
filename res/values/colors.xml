@@ -10,5 +10,12 @@
     <color name="button_bg">#ff4fc1e9</color>
     <color name="button_bg_pressed">#ffb6d99f</color>
     <color name="back_normal">#00000000</color>
-    <color name="back_pressed">#ff004986</color>    
+    <color name="back_pressed">#ff004986</color>
+    <color name="title_bg">#ffe27870</color>
+    <color name="bottom_bg">#ffe9daed</color>
+    <color name="selected_bg">#ffe27870</color>
+    <color name="tv_bg">#ffffc0bb</color>
+    <color name="tv_bg2">#fffad6c0</color>
+    <color name="text1">#ffe27870</color>
+    <color name="text2">#ffbebebe</color>
 </resources>

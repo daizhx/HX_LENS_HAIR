@@ -76,6 +76,45 @@ public class HairView extends ImageView{
 	private Handler handler;
 	public HairView(Context context){
 		super(context);
+		mContext = (HairAnalysisActivity) context;
+		clip = new Path();
+		pathRegion = new Region();
+		mPaint = new Paint();  
+		mPaint.setAntiAlias(true);  
+		mPaint.setStyle(Style.STROKE); 
+		mPaint.setColor(Color.RED);
+		mPaint.setStrokeWidth(5.0f);
+		mPaint.setTextSize(25.0f);
+		
+		circlePaint = new Paint();
+		circlePaint.setAntiAlias(true);
+		circlePaint.setColor(Color.RED);
+		circlePaint.setStrokeWidth(5.0f);
+		
+		handler = new Handler(){
+			public void handleMessage(Message message){
+				BigDecimal per = null;
+				Intent intent = new Intent(mContext, HairAnalysisResultActivity.class);
+				switch(analysisMode){
+					case HAIR_WATER:
+						per = new BigDecimal(((float)waterNum / totalPixelNum * 100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+						intent.putExtra("mode", HAIR_WATER);
+						break;
+					case HAIR_GLOSS:
+						per = new BigDecimal(((float)glossNum / totalPixelNum * 100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+						intent.putExtra("mode", HAIR_GLOSS);
+						break;
+					case HAIR_ELASTIC:
+						per = new BigDecimal(((float)elasticNum / totalPixelNum * 100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+						intent.putExtra("mode", HAIR_ELASTIC);
+						break;
+					default:
+						break;
+				}
+				intent.putExtra("content", per.intValue());
+				mContext.startActivity(intent);
+			}
+		};
 	}
 	
 	public HairView(Context context, AttributeSet attrs) {

@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.hengxuan.eht.logger.Log;
+
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -17,11 +20,28 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 	public static final String TAG = "LensMonitorView";
 	private IrisMonitorThread thread;
 	private LensMonitorParameter cmPara;
+	//最新获得的图片
 	private Bitmap capture_bitmap = null;
 	private boolean retry = true;
     private HttpURLConnection httpURLconnection;
     private float previewRatio = (float) (16.0/9.0);
     private Context mContext;
+    private SurfaceHolder sHolder;
+    public int mWidth,mHeight;
+    
+    private CameraSource cs;
+    
+    //通过回调接口，来实现上下文对自身状态改变的响应
+    public interface OnStateChangeListener{
+    	void onGetCaptureImage();
+    	void onStopRunning();
+    }
+    private OnStateChangeListener mOnStateChangeListener;
+    
+    public void setOnStateChangeListener(OnStateChangeListener f){
+    	mOnStateChangeListener = f;
+    }
+    private boolean isFirstTime = true;
     
 	public LensMonitorView(Context context, AttributeSet attrs) {
 		super(context,attrs);
@@ -52,19 +72,23 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		// TODO Auto-generated method stub
-		Log.d(TAG, "LensMonitorView:"+width+"x"+height);
+		Log.d(TAG, "surfaceChanged:LensMonitorView:"+width+"x"+height);
 		thread.setSurfaceSize(width, height);
+		mWidth = width;
+		mHeight = height;
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
+		Log.d(TAG, "LensMonitorView--Created");
         thread = new IrisMonitorThread(holder);
-		thread.setRunning(true);
-		try{
-			setCmPara(initParam());
-			thread.start();
-		}catch(IllegalThreadStateException e){}
+        sHolder = holder;
+//		thread.setRunning(true);
+//		try{
+//			setCmPara(initParam());
+//			thread.start();
+//		}catch(IllegalThreadStateException e){}
 	}
 
 	@Override
@@ -81,10 +105,10 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 		        System.gc();  //提醒系统及时回收   
 			}
 		}
-		stop();
+//		stop();
 	}
 	
-	private LensMonitorParameter initParam()
+	public LensMonitorParameter initParam()
 	{
 		LensMonitorParameter param = new LensMonitorParameter();
 		param.setId(1);
@@ -112,9 +136,10 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 		
 		private int mCanvasWidth = 1;
 		
-		private boolean mRun = false;
-	        
-	    private CameraSource cs;
+		public boolean mRun = false;
+	    //暂停工作
+		private boolean mPause = false;
+//	    private CameraSource cs;
 	        
 	    private Canvas c = null;	    
 	    
@@ -130,6 +155,9 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
                 
             }
         }
+	    public void setPause(boolean b){
+	    	mPause = b;
+	    }
 
 		@Override
 		public void run() {
@@ -139,34 +167,42 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 					url = new URL("http://"+cmPara.getIp()+":"+cmPara.getPort());
 					
 					while(mRun){
+						//暂停
+						while(mPause){
+							try {
+								sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								return;
+							}
+						}
+						
 						httpURLconnection = (HttpURLConnection)url.openConnection();
-						httpURLconnection.setRequestMethod("GET"); 
+						httpURLconnection.setRequestMethod("GET");
 						httpURLconnection.setReadTimeout(2*1000);
 						
 						// Log.e("isrun", "run capture");
-						try {
-							c = mSurfaceHolder.lockCanvas(null);
-							
-							captureImage(mCanvasWidth, mCanvasHeight, httpURLconnection);
+						c = mSurfaceHolder.lockCanvas(null);
+						if(captureImage(mCanvasWidth, mCanvasHeight, httpURLconnection)){
+							//
+						}else{
+							//try again?
 						}
-						catch(Exception e)
-						{
-							e.printStackTrace();
+						
+						if (c != null) {
+							mSurfaceHolder.unlockCanvasAndPost(c);
+							c = null;
 						}
-						finally {
-							if (c != null) {
-								// Log.e("isrun", "run finally");
-								mSurfaceHolder.unlockCanvasAndPost(c);
-								c = null;
-							}
-						}
+						
 						
 					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
+					Log.d(TAG, Log.getStackTraceString(e1));
 					mRun = false;
+					mOnStateChangeListener.onStopRunning();
 					// Toast.makeText(context, text, duration)
-					e1.printStackTrace();
 				}
 		}
 	    
@@ -183,14 +219,22 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 		 * @param width
 		 * @param height
 		 * @param httpURLconnection
-		 * @return
+		 * @return true-success false-fail
 		 */
-		private boolean captureImage(int width, int height,HttpURLConnection httpURLconnection){		
+		private boolean captureImage(int width, int height,HttpURLConnection httpURLconnection){
 			
 			cs = new SocketCamera(width, height, true);
-	        cs.capture(c, httpURLconnection); //capture the frame onto the canvas
-	        capture_bitmap = cs.getCaptureImage();	
+//	        cs.capture(c, httpURLconnection); //capture the frame onto the canvas
+			if(cs.capture(c, httpURLconnection)){
+	     
+	        if(isFirstTime){
+	        	mOnStateChangeListener.onGetCaptureImage();
+	        	isFirstTime = false;
+	        }
 	        return true;
+			}else{
+				return false;
+			}
 		}
 		
 		public boolean saveImage(){
@@ -228,16 +272,64 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 	
 	public void start(){
 		//thread initialized in the construction
-		this.thread.setRunning(true);
-		this.thread.start();
+		thread.setRunning(true);
+		thread.start();
 	}
 	public void stop(){
-		if(thread.mRun){
+		if(thread != null && thread.mRun){
 			this.thread.setRunning(false);
 			this.thread.interrupt();
 			this.thread = null;
 		}
 	}
+	
+	public void pause(){
+		Log.d(TAG, "pause");
+		if(!thread.mPause){
+			thread.setPause(true);
+			thread.interrupt();
+		}
+	}
+	//暂停后重新开始
+	public void restart(){
+		Log.d(TAG, "restart");
+		if(thread.mPause){
+			thread.setPause(false);
+//			thread.interrupted();
+		}
+	}
+	
+//	public void drawBitmap(Bitmap b){
+//		stop();
+//		Canvas c = sHolder.lockCanvas();
+//		if(mWidth == b.getWidth() && mHeight == b.getHeight()){
+//			c.save();
+//			c.drawBitmap(b, 0, 0, null);
+//			c.restore();
+//		}else{
+//			Matrix matrix = new Matrix();
+//			matrix.postRotate(90);
+//			c.save();
+//			Bitmap tmpBitmap = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, false);
+//			c.drawBitmap(tmpBitmap, 0, 0, null);
+//			if(!tmpBitmap.isRecycled()){
+//				tmpBitmap.recycle();   //回收图片所占的内存   
+//		        System.gc();  //提醒系统及时回收   
+//			}
+//			c.restore();
+//		}
+//		if(c != null){
+//			sHolder.unlockCanvasAndPost(c);
+//			thread.notify();
+//		}
+//	}
+//	
+//	/**
+//	 * 停止预览，选定照片
+//	 */
+//	public void PickUpImage(){
+//		drawBitmap(capture_bitmap);
+//	}
 	
 	public boolean getRunning(){
 		return thread.mRun;
@@ -249,7 +341,7 @@ public class LensMonitorView extends SurfaceView implements SurfaceHolder.Callba
 	
 	public Bitmap getCaptureImage()
 	{
-		return capture_bitmap;
+		return cs.getCaptureImage();
 	}
 
 }

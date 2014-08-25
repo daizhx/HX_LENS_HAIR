@@ -4,11 +4,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.hengxuan.eht.logger.Log;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 		private boolean hasThread;
 		private RelativeLayout.LayoutParams layoutParams;
 		private int missionCount;
-		private ViewGroup modal;
+		private ViewGroup mModal;
 		private Activity myActivity;
 		private ProgressBar progressBar;
 		private ViewGroup rootFrameLayout;
@@ -40,28 +41,23 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 			if (hasThread)
 			{
 				waitTime = -1;
-				//System.out.println("=====have wrong is occurred-myactivity="+myActivity+"---------------------");
 				notify();
-			} else
-			{
+			} else{
 				if(!isShowProgress)return;
 				final ViewGroup rootFrameLayout = getRootFrameLayout();
+				Log.d("rootFrameLayout="+rootFrameLayout);
 				final ViewGroup modal = getModal();
 				newProgressBar();
 				
 				mHandler.post(new Runnable() {
-					public void run()
-					{
-//						if (Log.D)
-						{
-							StringBuilder stringbuilder = new StringBuilder("state add modal -->> ");
-							String s = stringbuilder.append(modal).toString();
-							Log.d("DefaultEffectHttpListener", s);
-						}
+					public void run(){
+						StringBuilder stringbuilder = new StringBuilder("state add modal -->> ");
+						String s = stringbuilder.append(modal).toString();
+						Log.d(s);
 						
 						ViewGroup.LayoutParams layoutparams = new ViewGroup.LayoutParams(-1, -1);
+						
 						rootFrameLayout.addView(modal, layoutparams);
-						//System.out.println("+++++++++++++++++display progressBar--myacivity="+myActivity+"+++++++++++++++++++++++++");
 						rootFrameLayout.invalidate();
 //						myActivity.onShowModal();
 					}
@@ -69,13 +65,10 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 			}
 		}
 		
-		private ViewGroup getModal()
-		{
-			if (modal == null)
-			{
-				modal = new RelativeLayout(myActivity);
-				
-				modal.setOnTouchListener(new View.OnTouchListener() {
+		private ViewGroup getModal(){
+			if (mModal == null){
+				mModal = new RelativeLayout(myActivity);
+				mModal.setOnTouchListener(new View.OnTouchListener() {
 					public boolean onTouch(View view, MotionEvent motionevent)
 					{
 						return true;
@@ -83,10 +76,9 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 				});
 				ColorDrawable colordrawable = new ColorDrawable(Color.BLACK);
 				colordrawable.setAlpha(100);
-				modal.setBackgroundDrawable(colordrawable);
+				mModal.setBackgroundDrawable(colordrawable);
 			}
-			
-			return modal;
+			return mModal;
 		}
 
 		private ViewGroup getRootFrameLayout()
@@ -130,9 +122,9 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 			mHandler.post(new Runnable() {
 				public void run()
 				{
-					modal.removeView(progressBar);
+					mModal.removeView(progressBar);
 					progressBar = new ProgressBar(myActivity);
-					modal.addView(progressBar, layoutParams);
+					mModal.addView(progressBar, layoutParams);
 				}
 			});
 		}
@@ -201,31 +193,25 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 				
 				 if(waitTime == 0)
 				{
-					 //System.out.println("-----thread exit because of waitTime == 0");
+					 Log.d("-----thread exit because of waitTime == 0");
 					final ViewGroup rootFrameLayout = getRootFrameLayout();
 					final ViewGroup modal = getModal();
 										
 					mHandler.post(new Runnable() {
-						public void run()
-						{
-//							if (Log.D)
-							{
-								StringBuilder stringbuilder = new StringBuilder("state remove modal -->> ");
-								String s = stringbuilder.append(modal).toString();
-								Log.d("DefaultEffectHttpListener", s);
-							}
+						public void run(){
+							StringBuilder stringbuilder = new StringBuilder("state remove modal -->> ");
+							String s = stringbuilder.append(modal).toString();
+							Log.d(s);
 							
 							rootFrameLayout.removeView(modal);
 							rootFrameLayout.invalidate();
-							//System.out.println("+++++++++++++++++hide progressBar-myacitvity-"+myActivity +"+++++++++++++++++++++++++");
-//							myActivity.onHideModal();
 						}
 					});
 					waitTime = WAIT_TIME;
 					hasThread = false;
 				}
 				 else{
-					 //System.out.println("-----thread exit because of waittime=-1-------");
+					 Log.d("-----thread exit because of waittime=-1-------");
 				 }
 			}
 			}
@@ -276,12 +262,12 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 			if (myActivity != null)
 			{
 				State state = null;
-				//synchronized(stateMap) {
+				synchronized(stateMap) {
 //					if (Log.D)
 					{
 						StringBuilder stringbuilder = new StringBuilder("state get with -->> ");
 						String s = stringbuilder.append(myActivity).toString();
-						Log.d("DefaultEffectHttpListener", s);
+						Log.d(s);
 					}
 				
 					state = (State)stateMap.get(myActivity);
@@ -295,7 +281,7 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 						state = new State(myActivity);
 						stateMap.put(myActivity, state);
 					}				
-				//}
+				}
 				
 				state.addMission();
 			}
@@ -308,16 +294,19 @@ public class DefaultEffectHttpListener implements HttpGroup.OnStartListener,
 			if (myActivity != null)
 			{
 				((State)stateMap.get(myActivity)).removeMission();
+				//added
+				stateMap.remove(myActivity);
+				myActivity = null;
 			}
 		}
 	}
 	
-	public void onDestroy() {
-		synchronized(stateMap) {
-			stateMap.remove(myActivity);
-			myActivity = null;
-		}
-	}
+//	public void onDestroy() {
+//		synchronized(stateMap) {
+//			stateMap.remove(myActivity);
+//			myActivity = null;
+//		}
+//	}
 
 	public void onEnd(HttpResponse httpresponse) {
 		if (onEndListener != null)

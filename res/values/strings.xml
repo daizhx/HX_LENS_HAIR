@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">EHT</string>
+    <string name="app_name">Lens</string>
     <string name="soft_update">Soft Update</string>
     <string name="soft_update_message">Please update the application!</string>
     <string name="update">Update</string>
@@ -35,6 +35,7 @@
     <string name="searching_device">Search for devices</string>
     <string name="search_is_completed">Search is completed</string>
     <string name="disconnect">disconnect</string>
+    <string name="lost_lens">Lost lens,please try again!</string>
     <string name="connect">connect</string>
     <string name="lens_connecting">lens connecting...</string>
     <string name="pair">Pair</string>
@@ -69,7 +70,7 @@
     <string name="moderate_risk">Moderate risk</string>
     <string name="high_risk">High risk</string>
     <string name="pg_home_exit_confrim_string">Sure to quit platform?</string>
-    <string name="exit">Exit</string>
+    <string name="exit">Login out</string>
     <string name="cancel">cancel</string>
     <string name="analysis_result">Analysis result</string>
     <string name="file">File</string>
@@ -89,7 +90,7 @@
     <string name="my_products">My currently using products</string>
     <string name="music_massage">Music Massage</string>
     <string name="user_login">User Login</string>
-    <string name="password_hint">Password :</string>
+    <string name="password_hint">Password</string>
     <string name="user_name">User Name</string>
     <string name="title">Title</string>
     <string name="user_info">Information Settings</string>
@@ -184,7 +185,7 @@
     <string name="cause_of_formation">Cause of formation：</string>
     <string name="recommendations_for_improvement">Recommendations for improvement：</string>
     <string name="skin_result">Analysis results of skin</string>
-    <string name="skin_report">My Skin Report</string>
+    <string name="skin_report">Skin detection report</string>
     <string name="oil_state">Oil condition：</string>
     <string name="oil_content">Oil content：</string>
     <string name="water_state">Water conditions：</string>
@@ -222,7 +223,7 @@
     <string name="hair_gloss_content">Gloss content：</string>
     <string name="hair_elastic">Hair elastic：</string>
     <string name="hair_elastic_content">Elastic state：</string>
-    <string name="hair_report">My Hair report</string>
+    <string name="hair_report">Hair detecion report</string>
     <string name="rooting_state">Root Condition：</string>
     <string name="rooting_radius">Root radius：</string>
     <string name="hair_water_analysis">Moist degree</string>
@@ -329,6 +330,7 @@
     <string name="new_photo">Capture new iris photo</string>
     <string name="old_photo">Review old iris photo</string>
     <string name="help">Help</string>
+    <string name="more">More</string>
     <string name="new_skin_photo">Capture new skin photo</string>
     <string name="old_skin_photo">Review old skin photo</string>
     <string name="new_hair_photo">Capture new hair photo</string>
@@ -357,4 +359,22 @@
     <string name="alert_message_poor_network2">Access network fail,please try again.</string>
     <string name="analysis_mode">Analysis Mode</string>
     <string name="analysis_status">Analysis Status</string>
+    <string name="reset">Reset</string>
+    
+    <!--20140815  -->
+    <string name="lens_detect">Lens Inspect</string>
+        <string name="lens_record">Inspect Record</string>
+    <string name="lens_help">Help</string>
+    <string name="lens_report">Inspect Report</string>
+    
+    <string name="setting">Settings</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="reset_pw">Reset Password</string>
+    <string name="check_update">Check New Version</string>
+    <string name="about">About Us</string>
+    <string name="more_app">More</string>
+    <string name="user_suggestion">Give A Suggestion</string>
+    <string name="not_login">You have not logined ~</string>
+    <string name="iris_report">Iris detection report</string>
+    <string name="no_name_pw">User name or password can`t be empty</string>
 </resources>

@@ -7,7 +7,7 @@ import java.util.List;
 import com.hengxuan.lens.utils.MultiTouchController;
 import com.hengxuan.lens.utils.MultiTouchController.PointInfo;
 import com.hengxuan.lens.utils.MultiTouchController.PositionAndScale;
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 
 import android.app.Activity;

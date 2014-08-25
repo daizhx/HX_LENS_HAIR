@@ -1,5 +1,6 @@
 package com.hengxuan.lens.http;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.hengxuan.lens.http.constant.ConstHttpProp;
@@ -17,6 +18,17 @@ public class HttpGroupaAsynPool extends HttpGroup {
 	public static HttpGroupaAsynPool getHttpGroupaAsynPool() {
 		if(mHttpGroupaAsynPool == null){
 			HttpGroupSetting localHttpGroupSetting = new HttpGroupSetting();
+			localHttpGroupSetting.setType(ConstHttpProp.TYPE_JSON);
+			mHttpGroupaAsynPool = new HttpGroupaAsynPool(localHttpGroupSetting);
+		}
+		
+		return mHttpGroupaAsynPool;
+	}
+	
+	public static HttpGroupaAsynPool getHttpGroupaAsynPool(Activity activity) {
+		if(mHttpGroupaAsynPool == null){
+			HttpGroupSetting localHttpGroupSetting = new HttpGroupSetting();
+			localHttpGroupSetting.setMyActivity(activity);
 			localHttpGroupSetting.setType(ConstHttpProp.TYPE_JSON);
 			mHttpGroupaAsynPool = new HttpGroupaAsynPool(localHttpGroupSetting);
 		}

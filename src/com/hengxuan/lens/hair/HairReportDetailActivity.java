@@ -16,7 +16,7 @@ import com.hengxuan.lens.http.constant.ConstHttpProp;
 import com.hengxuan.lens.http.json.JSONArrayPoxy;
 import com.hengxuan.lens.http.json.JSONObjectProxy;
 import com.hengxuan.lens.utils.PreferencesUtils;
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -46,7 +46,7 @@ public class HairReportDetailActivity extends Activity {
 		badnettv = (TextView) findViewById(R.id.isempty);
 		Intent intent = getIntent();
 		getDate = intent.getStringExtra("currentdate");
-		getUserPin = PreferencesUtils.getStringFromPrefences(this, ConstHttpProp.USER_PIN);
+		getUserPin = PreferencesUtils.getStringFromPreferences(this, ConstHttpProp.USER_PIN);
 		list = new ArrayList<HashMap<String, String>>();
 		queryData();
 		listview = (ListView) findViewById(R.id.expandlist);

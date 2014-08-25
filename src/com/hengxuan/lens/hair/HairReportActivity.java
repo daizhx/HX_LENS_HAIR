@@ -18,7 +18,7 @@ import com.hengxuan.lens.http.constant.ConstHttpProp;
 import com.hengxuan.lens.http.json.JSONArrayPoxy;
 import com.hengxuan.lens.http.json.JSONObjectProxy;
 import com.hengxuan.lens.utils.PreferencesUtils;
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -51,7 +51,7 @@ public class HairReportActivity extends Activity {
 		setContentView(R.layout.simple_list);
 		datelist = new ArrayList<HashMap<String, String>>();
 		contentlist = new ArrayList<ArrayList<HashMap<String, String>>>();
-		getUserPin = PreferencesUtils.getStringFromPrefences(this, ConstHttpProp.USER_PIN);
+		getUserPin = PreferencesUtils.getStringFromPreferences(this, ConstHttpProp.USER_PIN);
 
 		// 历史时间段保存的数据
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");

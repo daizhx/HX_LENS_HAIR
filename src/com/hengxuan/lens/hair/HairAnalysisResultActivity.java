@@ -15,7 +15,7 @@ import com.hengxuan.lens.http.constant.ConstFuncId;
 import com.hengxuan.lens.http.constant.ConstHttpProp;
 import com.hengxuan.lens.http.json.JSONArrayPoxy;
 import com.hengxuan.lens.utils.PreferencesUtils;
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

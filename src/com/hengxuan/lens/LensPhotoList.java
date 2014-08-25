@@ -1,7 +1,9 @@
 package com.hengxuan.lens;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +11,7 @@ import java.util.Map;
 import com.hengxuan.lens.MyDataBaseContract.ImagesInfo;
 import com.hengxuan.lens.hair.HairAnalysisActivity;
 import com.hengxuan.lens.utils.MyAsynImageLoader;
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -28,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -109,12 +112,48 @@ public class LensPhotoList extends Activity {
 			}
 		});
 		
+		
+		//test code
+		et = (EditText)findViewById(R.id.et);
+		Button btn = (Button)findViewById(R.id.btn);
+		btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String s = et.getText().toString();
+				String path = Environment.getExternalStorageDirectory() + File.separator + "dxlphoto" + File.separator + s;
+				recordPhotoInfo("daizhx", "test", path, 1);
+				
+			}
+		});
+	}
+	EditText et;
+	
+	private void recordPhotoInfo(String owner,String photoTag, String photoPath,int photoIndex) {
+		// TODO Auto-generated method stub
+		
+		MyDbHelper myDbHelper = new MyDbHelper(this);
+		SQLiteDatabase db = myDbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String strdate = simpleDateFormat.format(date);
+		
+		values.put(ImagesInfo.COLUMN_NAME_OWNER, owner);
+		values.put(ImagesInfo.COLUMN_NAME_TAG,photoTag);
+		values.put(ImagesInfo.COLUMN_NAME_DATA, photoPath);
+		values.put(ImagesInfo.COLUMN_NAME_DATE, strdate);
+		values.put(ImagesInfo.COLUMN_NAME_TYPE, photoIndex);
+		long newRowId = db.insert(ImagesInfo.TABLE_NAME, null, values);
+		Log.d("daizhx", "newRowId="+newRowId);
 	}
 	
 	private void queryDb(int type){
 		Cursor c = null;
 		if(type == 0){
-			c = db.query(ImagesInfo.TABLE_NAME, projection, null, null, null, null, null);
+			c = db.query(ImagesInfo.TABLE_NAME, projection, null, null, null, null, "date desc");
 		}else{
 			c = db.query(ImagesInfo.TABLE_NAME, projection, "type="+type, null, null, null, "_id desc");
 		}
@@ -136,6 +175,7 @@ public class LensPhotoList extends Activity {
 			photoInfos.add(map);
 		}while(c.moveToNext());
 	}
+	
 	
 	class MyListAdatper extends BaseAdapter{
 

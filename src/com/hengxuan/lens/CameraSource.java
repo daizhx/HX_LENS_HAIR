@@ -50,7 +50,7 @@ public interface CameraSource {
 	 * @return true iff a frame was successfully written to the canvas
 	 */
 	
-	void capture(Canvas canvas,HttpURLConnection httpURLconnection);
+	boolean capture(Canvas canvas,HttpURLConnection httpURLconnection);
 	
 	boolean saveImage(String savePath, String fileName);
 	

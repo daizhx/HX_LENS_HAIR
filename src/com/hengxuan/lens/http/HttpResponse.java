@@ -10,7 +10,7 @@ import java.util.Map;
 import com.hengxuan.lens.http.json.JSONArrayPoxy;
 import com.hengxuan.lens.http.json.JSONObjectProxy;
 import com.hengxuan.lens.http.utils.ExceptionDrawable;
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 
 import android.content.Context;

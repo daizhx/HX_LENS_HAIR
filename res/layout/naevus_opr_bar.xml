@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <HorizontalScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/half_translucent"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_build_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_zoom"
+                android:gravity="center"
+                android:text="@string/build_selection"
+                android:textScaleX="0.7"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/tv_cancel_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_line"
+                android:gravity="center"
+                android:text="@string/cancel_selection"
+                android:textScaleX="0.7"
+                android:textColor="@color/white"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/tv_delete_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_ana_selector"
+                android:gravity="center"
+                android:text="@string/delete_selection"
+                android:textScaleX="0.7"
+                android:textColor="@color/white"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/tv_ana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:drawableTop="@drawable/reset"
+                android:gravity="center"
+                android:text="@string/analysis_text"
+                android:textScaleX="0.7"
+                android:textColor="@color/white"
+                android:layout_marginLeft="40dp"/>
+            
+            <TextView
+                android:id="@+id/tv_check_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:drawableTop="@drawable/reset"
+                android:gravity="center"
+                android:text="@string/check_file"
+                android:textScaleX="0.7"
+                android:textColor="@color/white"
+                android:layout_marginLeft="40dp"/>
+        </LinearLayout>
+    </HorizontalScrollView>

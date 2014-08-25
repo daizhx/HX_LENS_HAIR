@@ -40,9 +40,7 @@ import com.hengxuan.lens.http.utils.IOUtil;
 import com.hengxuan.lens.http.utils.LanguageUtil;
 import com.hengxuan.lens.http.utils.Md5Encrypt;
 import com.hengxuan.lens.http.utils.NetUtils;
-import com.hengxuan.lenshair.R;
-
-
+import com.hengxuan.lens.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;

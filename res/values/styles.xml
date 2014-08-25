@@ -15,13 +15,35 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowAnimationStyle">@style/anim_activity</item>
     </style>
 
+    
     <style name="Widget.GifMoviewView" parent="@android:style/Widget"></style>
 
+    <!-- 
     <style name="skan_pop" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/skan_pop_enter</item>
         <item name="android:windowExitAnimation">@anim/skan_pop_exit</item>
     </style>
+ -->
+    <style name="anim_activity" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/zoomin</item>
+        <item name="android:activityOpenExitAnimation">@anim/zoomout</item>
+        <item name="android:activityCloseEnterAnimation">@anim/zoomin</item>
+        <item name="android:activityCloseExitAnimation">@anim/zoomout</item>
+    </style>
+    
+        <style name="map_BubblePrimary">
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">#000</item>
+    </style>
 
+    <style name="map_BubbleSecondary">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">#000</item>
+    </style>
+    
+    
 </resources>

@@ -1,7 +1,7 @@
 package com.hengxuan.lens.gifview;
 
 
-import com.hengxuan.lenshair.R;
+import com.hengxuan.lens.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
