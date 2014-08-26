@@ -377,4 +377,9 @@
     <string name="not_login">You have not logined ~</string>
     <string name="iris_report">Iris detection report</string>
     <string name="no_name_pw">User name or password can`t be empty</string>
+    <string name="current_pw">Old password:</string>
+    <string name="new_pw">New password:</string>
+    <string name="new_pw_confirm">New password confirm:</string>
+    <string name="find_pw">Find password</string>
+    <string name="head_profile">Head photo</string>
 </resources>

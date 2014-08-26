@@ -94,7 +94,7 @@
     <string name="title">标题</string>
     <string name="user_info">信息设置</string>
     <string name="share">应用分享</string>
-    <string name="sharecontent">EHT健康软件非常容易使用，你也应该试试</string>
+    <string name="sharecontent">通过镜头拍摄虹膜，毛发，皮肤，黑痣来检测身体健康状态，赶紧来试一试吧</string>
     <string name="physical_report">体检报告</string>
     <string name="system_settings">系统设置</string>
     <string name="time_setting">时间设置</string>
@@ -415,4 +415,9 @@
     <string name="not_login">你还未登录哦~</string>
     <string name="iris_report">虹膜体检报告</string>
     <string name="no_name_pw">用户名或密码不能为空</string>
+    <string name="current_pw">当前密码:</string>
+    <string name="new_pw">新密码:</string>
+    <string name="new_pw_confirm">确认密码:</string>
+    <string name="find_pw">找回密码</string>
+    <string name="head_profile">头像</string>
 </resources>

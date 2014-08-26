@@ -11,6 +11,12 @@ public class PreferencesUtils {
 	public static String getStringFromPreferences(Context context, String prefFile, String key, String defaultString){
 		return context.getSharedPreferences(prefFile, Context.MODE_PRIVATE).getString(key, defaultString);
 	}
+	public static boolean putString2Prefs(Context c, String key, String val){
+		return putString2Prefs(c, PREFS_NAME, key, val);
+	}
+	public static boolean putString2Prefs(Context c, String prefsFile, String key, String val){
+		return c.getSharedPreferences(prefsFile, Context.MODE_PRIVATE).edit().putString(key, val).commit();
+	}
 	
 	public static boolean putInt2Preferences(Context context, String key, int value){
 		return putInt2Preferences(context, PREFS_NAME, key, value);

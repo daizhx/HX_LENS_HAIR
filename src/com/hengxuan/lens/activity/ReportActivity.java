@@ -2,6 +2,9 @@ package com.hengxuan.lens.activity;
 
 import com.hengxuan.eht.IntentAction;
 import com.hengxuan.lens.R;
+import com.hengxuan.lens.hair.HairReportActivity;
+import com.hengxuan.lens.iris.IrisReportActivity;
+import com.hengxuan.lens.skin.SkinReportActivity;
 import com.hengxuan.lens.user.User;
 
 import android.annotation.SuppressLint;
@@ -17,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReportActivity extends Activity {
 	private String userName;
@@ -48,7 +52,24 @@ public class ReportActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 				// TODO Auto-generated method stub
-				
+				if(!User.isLogin){
+					Toast.makeText(ReportActivity.this, R.string.not_login, 2000).show();
+					return;
+				}
+				switch (position) {
+				case 0:
+					startActivity(new Intent(ReportActivity.this, HairReportActivity.class));
+					break;
+				case 1:
+					startActivity(new Intent(ReportActivity.this, SkinReportActivity.class));
+					break;
+				case 2:
+					startActivity(new Intent(ReportActivity.this, IrisReportActivity.class));
+					break;
+
+				default:
+					break;
+				}
 			}
 		});
 		
@@ -63,21 +84,23 @@ public class ReportActivity extends Activity {
 			}
 		});
 		
-		if(User.isLogin()){
-			userName = User.getUserName();
-			password = User.getUserName();
-		}
+		
 	}
 	
 	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onResume();
+		if(User.isLogin()){
+			userName = User.getUserName();
+			password = User.getUserName();
+		}
 		if(userName != null && password != null){
 			tvName.setText(userName);
 			tvGender.setBackgroundColor(Color.TRANSPARENT);
 			tvGender.setText(User.gender);
 		}
+		
+		super.onResume();
 	}
 }

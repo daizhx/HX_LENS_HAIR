@@ -112,23 +112,7 @@ public class LensPhotoList extends Activity {
 			}
 		});
 		
-		
-		//test code
-		et = (EditText)findViewById(R.id.et);
-		Button btn = (Button)findViewById(R.id.btn);
-		btn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String s = et.getText().toString();
-				String path = Environment.getExternalStorageDirectory() + File.separator + "dxlphoto" + File.separator + s;
-				recordPhotoInfo("daizhx", "test", path, 1);
-				
-			}
-		});
 	}
-	EditText et;
 	
 	private void recordPhotoInfo(String owner,String photoTag, String photoPath,int photoIndex) {
 		// TODO Auto-generated method stub

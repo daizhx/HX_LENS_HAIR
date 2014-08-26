@@ -31,7 +31,7 @@
         android:background="@drawable/quad_corner_bg"
         android:text="@string/exit"
         android:textSize="24sp"
-        android:textColor="@color/text1"
+        android:textColor="@drawable/tv_selector"
         android:id="@+id/text"/>
 
 </LinearLayout>

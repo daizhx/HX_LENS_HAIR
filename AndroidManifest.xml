@@ -84,6 +84,29 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+		<activity android:name=".skin.SkinReportActivity"></activity>
+        <activity android:name=".skin.SkinReportDetailActivity"></activity>
+        
+        <activity android:name=".iris.IrisReportActivity"></activity>
+        <activity android:name=".iris.IrisReportDetailActivity"></activity>
+        
+        <activity android:name=".activity.AboutActivity"></activity>
+        
+        <activity android:name=".user.RegisterActivity">
+            <intent-filter >
+                <action android:name="com.hengxuan.eht.action.REGISTER"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".user.ResetPasswordActivity">
+            <intent-filter >
+                <action android:name="com.hengxuan.eht.action.RESET_PW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.UserSuggestionActivity"></activity>
+        <activity android:name=".activity.UserProfileActivity"></activity>
     </application>
 
 </manifest>

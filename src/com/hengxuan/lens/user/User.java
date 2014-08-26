@@ -17,7 +17,7 @@ public class User {
 	public static final String GENDER = "gender";
 	
 	//是否已登录
-	private static boolean isLogin = false;
+	public static boolean isLogin = false;
 	//用户名-保存在prefs中
 	public static String userName = null;
 	//用户密码-保存在prefs中
@@ -35,6 +35,18 @@ public class User {
 	
 	public static boolean isLogin(){
 		return isLogin;
+	}
+	
+	public static void setLogin(String name, String pw, boolean b){
+		isLogin = b;
+		userName = name;
+		password = pw;
+		Context c = EHTApplication.getInstance();
+		SharedPreferences.Editor editor = c.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE).edit();
+		editor.putBoolean(IS_LOGIN, b);
+		editor.putString(USER_NAME, name);
+		editor.putString(PW, pw);
+		editor.commit();
 	}
 	
 	public static String getUserName(){

@@ -4,23 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/aaa">
-
-        <EditText
-            android:id="@+id/et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="add"
-            android:id="@+id/btn"/>
-    </LinearLayout>
-
+    
     <ListView
         android:layout_below="@+id/aaa"
         android:id="@+id/expandlist"
@@ -37,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/no_data"
-        android:textColor="#00ffff"
         android:textSize="20sp"
         android:visibility="gone" />
 

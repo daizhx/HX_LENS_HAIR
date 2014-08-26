@@ -3,6 +3,7 @@ package com.hengxuan.lens.user;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.hengxuan.eht.IntentAction;
 import com.hengxuan.eht.logger.Log;
 import com.hengxuan.lens.R;
 import com.hengxuan.lens.http.HttpError;
@@ -47,16 +48,18 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	// µÇÂ¼ºóÌø×ªµ½
 	private Intent goIntent;
+	private static final int LOGIN_FAIL = 1;
+	private static final int LOGIN_SUCCESS = 2;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 1:
+			case LOGIN_FAIL:
 				// µÇÂ¼Ê§°Ü
 				Log.d("daizhx", "handle message = " + msg.what);
 				tvMessage.setVisibility(View.INVISIBLE);
 				break;
-			case 2:
+			case LOGIN_SUCCESS:
 				// µÇÂ¼³É¹¦-Ìø×ª
 				if (goIntent != null) {
 					startActivity(goIntent);
@@ -106,13 +109,16 @@ public class LoginActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.et_user_name:
-
 			break;
 		case R.id.et_pw:
 			break;
 		case R.id.tv_register:
+			startActivity(new Intent(IntentAction.REGISTER));
+			finish();
 			break;
 		case R.id.tv_find_pw:
+			startActivity(new Intent(IntentAction.RESET_PW));
+			finish();
 			break;
 		case R.id.tv_login:
 			Login();
@@ -165,6 +171,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 						try {
 							String s5 = httpresponse.getJSONObject().getJSONObject("registerInfo").get("pin").toString();
 							Log.d("login", "Login pin.." + s5);
+							User.setLogin(mUserName, mPassword, true);
+							mHandler.sendEmptyMessage(LOGIN_SUCCESS);
 						} catch (Exception exception) {
 							mHandler.post(new Runnable() {
 								
@@ -198,6 +206,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private void handle(final int code, String msg) {
 		// TODO Auto-generated method stub
+		if(code == LOGIN_SUCCESS){
+			
+		}
+		
 		Animation showAction = new TranslateAnimation(
 				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
 				0.0f, Animation.RELATIVE_TO_SELF, -1.0f,
